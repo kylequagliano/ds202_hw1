@@ -1,0 +1,43 @@
+---
+title: "ds202_hw3"
+author: "Kyle Quagliano"
+date: "9/20/2021"
+output: html_document
+---
+
+```{r}
+devtools::install_github('xdaiISU/classdata')
+library(classdata)
+library(ggplot2)
+str(ames)
+ames <- data.frame(ames)
+ggplot(data=ames, aes(x=GrLivArea, y= SalePrice)) + geom_point() + geom_abline(aes(slope=100, intercept=20000))
+
+"The relationship between Sales price and the living area size is that as Sales price increases so does the size of the living area. The majority of the living size is between 1000 and 2000 and the majority of the points with the SalesPrice is under 200000."
+
+"1 anomaly in the previous plot is the outliers in living area there is only about 2 points that are outside the cluster ont is almost 6000 and the other is close to 5000. The other anomaly is the outlier in the sales price, there are 2 houses that case almost $800000."
+
+ggplot(data=ames, aes(x=OverallCond)) + geom_histogram()
+
+"The majority of sales are for houese with a condition of 5  and then followed by 6, 7, 8, 4, 10, so the moajority of houses that are sold are in average condition or better."
+
+ames$houseAge <- ames$YrSold - ames$YearBuilt
+ggplot(data=ames, aes(x=houseAge, y=SalePrice)) + geom_point()
+
+"Given the scatter plot for house age and sales price, it can be seen that newer houses tend to sell at a higher price."
+
+ggplot(data=ames, aes(x=OverallCond)) + geom_histogram()
+
+"Overall there were more sales of poor houses I would consider any house with any house greater than a 7 in overall condition as a nice house and it was evident in the histogram that there was a lotmore houses that were not as good in condition."
+
+ames <- ames[ames$Neighborhood %in% c('BrkSide', 'ClearCrk', 'CollgCr', 'Somerst'), ]
+ggplot(data=ames, aes(x=YearBuilt, y=SalePrice)) + geom_point() + facet_grid(LandSlope~Neighborhood)
+
+"The slope of property and neighborhood affect the sale price of the house more jurastically then the year built effects the sales price."
+
+
+ggplot(ames, aes(x=SalePrice), fill=BldgType) + geom_histogram()
+"Most buildings cost about the same price"
+
+```
+
